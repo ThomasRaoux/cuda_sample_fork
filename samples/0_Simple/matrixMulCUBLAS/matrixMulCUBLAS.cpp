@@ -250,6 +250,8 @@ int matrixMultiply(int argc, char **argv, int devID, sMatrixSize &matrix_size) {
 
     checkCudaErrors(cublasCreate(&handle));
 
+    // Use TF32 tensorcore.
+    cublasSetMathMode(handle, CUBLAS_TF32_TENSOR_OP_MATH);
     // Perform warmup operation with cublas
     checkCudaErrors(cublasSgemm(
         handle, CUBLAS_OP_N, CUBLAS_OP_N, matrix_size.uiWB, matrix_size.uiHA,
